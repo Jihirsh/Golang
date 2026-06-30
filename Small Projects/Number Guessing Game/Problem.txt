@@ -1,0 +1,30 @@
+Problem #1: Number Guessing Game
+
+Write a program that:
+
+Generates a random number between 1 and 100.
+Asks the user to guess.
+Reads input from terminal.
+If guess is too high:
+print "Too high"
+If guess is too low:
+print "Too low"
+If correct:
+print "You won!"
+exit.
+
+Example:
+
+Guess the number:
+
+50
+Too low
+
+75
+Too high
+
+63
+You won!
+
+
+Add restriction of 10 attempts only
