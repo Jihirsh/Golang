@@ -1,0 +1,77 @@
+Simple Calculator
+📌 Problem
+
+Create a command-line calculator in Go that:
+
+Takes two integer inputs from the user.
+Takes an arithmetic operator (+, -, *, /).
+Performs the selected operation.
+Prints the result.
+Handles invalid number input.
+Prevents division by zero.
+Displays an error for unsupported operators.
+
+
+📥 Example Input
+Enter first number:
+15
+
+Enter operator (+ - * /):
+*
+
+Enter second number:
+8
+📤 Example Output
+120
+
+
+
+🧠 Approach
+Read the first integer.
+Read the operator.
+Read the second integer.
+Use a switch statement to determine which operation to perform.
+Call a separate function for each mathematical operation.
+For division:
+Check whether the divisor is zero.
+Return an error if division by zero is attempted.
+Print the result.
+
+
+✨ Features
+User input using fmt.Scan()
+Separate function for each operation
+Uses switch statements
+Proper error handling
+Division by zero protection
+Clean and modular code
+
+
+📚 Go Concepts Practiced
+Variables
+Functions
+Function parameters
+Return values
+Multiple return values
+Error handling with error
+errors.New()
+switch statements
+User input with fmt.Scan()
+Basic program structure (package main, func main())
+
+
+
+💡 What I Learned
+How to split logic into reusable functions.
+How Go returns multiple values from a function.
+Why Go uses explicit error handling instead of exceptions.
+How to create custom errors using errors.New().
+How switch statements improve readability over multiple if-else conditions.
+How to validate user input and gracefully handle invalid cases.
+
+
+
+note to self -
+
+don't use else unless needed, see flow of program and predict where it will Go
+Scanf doesn't wait for next input and picks up whatever is in the text field(terminal) automatically
