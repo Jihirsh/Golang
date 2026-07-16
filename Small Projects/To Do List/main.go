@@ -18,6 +18,8 @@ func main() {
 	}
 }
 
+//exploring how to convert string to int
+
 func showMenu() int {
 	var localOption int
 
