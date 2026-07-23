@@ -1,11 +1,11 @@
 package main
 
 import (
-	"os"
 	"bufio"
 	"fmt"
+	"os"
+	"strconv"
 )
-
 
 func main() {
 	var option int = 0
@@ -18,11 +18,7 @@ func main() {
 	}
 }
 
-//exploring how to convert string to int
-
 func showMenu() int {
-	var localOption int
-
 	fmt.Println()
 	fmt.Println("==== TODO LIST ====")
 	fmt.Println("1. Add Task")
@@ -32,11 +28,11 @@ func showMenu() int {
 	fmt.Println()
 	fmt.Print("Choose: ")
 
-	fmt.Scan(&localOption)
-
-	return localOption
+	option:= readInt()
+	return option
 }
 
+// Orchestrator function that calls other functions to do task based on the menu option chosen by the user
 func manage(option int, toDoList *[]string) {
 	switch option {
 	case 1:
@@ -53,9 +49,12 @@ func manage(option int, toDoList *[]string) {
 
 func addTask(toDoList *[]string) {
 	fmt.Print("Enter task: ")
-	task := bufio.NewScanner(os.Stdin)
-	task.Scan()
-	*toDoList = append(*toDoList, task.Text())
+	value, readerr := readLine()
+	if readerr != nil {
+		fmt.Println(readerr)
+	}
+
+	*toDoList = append(*toDoList, value)
 }
 
 func viewTasks(toDoList []string) {
@@ -65,25 +64,65 @@ func viewTasks(toDoList []string) {
 }
 
 func deleteTask(toDoList []string) [] string {
-	var index int
 
+	// If toDoList is empty, we do early exit
 	if len(toDoList) == 0 {
 		fmt.Println("No tasks to delete.")
 		return toDoList
 	}
 
+	// Taking input from user in terminal and converting the string index type to int
 	fmt.Print("Choose the index of the task you want to delete: ")
-	fmt.Scan(&index)
+	index := readInt()
 
+	// Validation check
 	if index <= 0 || index > len(toDoList) {
 		fmt.Println("Choose a valid index.")
 		return toDoList
 	}
 
-	if index >= 1 {
-		fmt.Printf("Removed the task %v from the ToDo List\n", toDoList[index - 1])
-	}
+	// Removing the task from the slice
+	fmt.Printf("Removed the task %v from the ToDo List\n", toDoList[index - 1])
 	toDoList = append(toDoList[:index-1], toDoList[index:]...)
 
 	return toDoList
+}
+
+// Taking user input at different instances
+func readLine() (string, error) {
+	scanner := bufio.NewScanner(os.Stdin)
+
+	if !scanner.Scan() {
+
+		if scanner.Err() != nil {
+			return "", scanner.Err()
+		}
+	}
+
+	value := scanner.Text()
+
+	return value, nil
+}
+
+
+// Makes sure valid input is enterred
+func readInt () int {
+
+	value, readerr := readLine()
+
+	for readerr != nil {
+		fmt.Println(readerr)
+		fmt.Print("Please enter again: ")
+		value, readerr = readLine()
+	}
+
+	option, err := strconv.Atoi(value)
+	for err != nil {
+		fmt.Println(err)
+		fmt.Print("Choose a valid index: ")
+		value, readerr = readLine()
+		option, err = strconv.Atoi(value)
+	}
+
+	return option
 }
